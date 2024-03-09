@@ -1,6 +1,6 @@
 import csv
 
-def biobjective_lexicographic(R_file, T_file, has_header=False):
+def bilex(R_file, T_file, has_header=False):
     """
     Calcula a matriz A usando a abordagem biobjetiva lexicográfica.
     
@@ -22,6 +22,9 @@ def biobjective_lexicographic(R_file, T_file, has_header=False):
 
     # Inicializa a lista T como uma lista vazia
     T = []
+
+    # Inicializa a lista names como uma lista vazia
+    names = []
     
     
 
@@ -220,7 +223,7 @@ def run_biobjective_lexicographic():
     has_header = has_header_input == 'S'
 
     # Chama a função biobjective_lexicographic automaticamente
-    A = biobjective_lexicographic(R_file, T_file, has_header)
+    A = bilex(R_file, T_file, has_header)
 
     # Retorna a matriz
     return A
@@ -228,28 +231,76 @@ def run_biobjective_lexicographic():
 
 
 
-R_file = input("Informe o nome do arquivo R: ")
-T_file = input("Informe o nome do arquivo T: ")
-
-R = []
-T = []
 
 
-has_header_input = input("Os arquivos têm cabeçalho? (S para Sim, N para Não): ").upper()
-has_header = has_header_input == 'S'
+def par10(G_file, has_header = False):
 
-names = []
+    G = []
+
+    names = []
+
+    # Lê os valores do arquivo G_file e atribui a matriz vazia G, e adiciona os nomes à lista names
+    with open(G_file, 'r') as arquivo:
+        arquivo_csv = csv.reader(arquivo, delimiter=',')
+        if has_header:
+            next(arquivo_csv)  # Pula a linha do cabeçalho
+        for line in arquivo_csv:
+            names.append(line[0])  # Adiciona o primeiro elemento de cada linha à lista names
+            valores = [float(valor) if (valor != '' and valor != '0.0') else 0.0 for valor in line[1:]]
+            G.append(valores)
+
+
+    # Inicializa as variáveis m e n com o número total de listas em G e com o comprimento da última lista, respectivamente.
+    m, n = len(G), (len(G[0-1]))
+    
+    # Inicializa a matriz A com o mesmo comprimento de G preenchida com 1's
+    A = [[1] * n for _ in range(m)]
+
+    for i in range(0,m):
+        
+
+        # Bloco que percorre cada linha da matriz A e atualiza os valores
+        for j in range(n):
+            # Caso haja apenas um valor na linha ele recebe 1.0
+            if n == 0:
+                A[i][j] = G[i][j]
+            else:
+                A[i][j] = G[i][j]
+
+
+        # Variável para calcular o maior valor na linha
+        max = max(A[0])
+
+        for j in range(n):
+            # Caso A[i][j] == 0 então A[i][j] recebe o maior valor da linha multiplicado por 10
+            if A[i][j] == 0:
+                A[i][j] = max*10
+        #A.sort()
 
 
 
-
-A = biobjective_lexicographic(R_file, T_file, has_header)
-tam = len(A)
-
-
-# Exibir a matriz A
-with open('out.txt', 'w') as output_file:
-    for i in range(0, tam):
-        name = names[i]
-        formatted_row = [float(value) for value in A[i]]
-        print(f'{name: <30}{formatted_row}', file=output_file)
+#R_file = input("Informe o nome do arquivo R: ")
+#T_file = input("Informe o nome do arquivo T: ")
+#
+#R = []
+#T = []
+#
+#
+#has_header_input = input("Os arquivos têm cabeçalho? (S para Sim, N para Não): ").upper()
+#has_header = has_header_input == 'S'
+#
+#names = []
+#
+#
+#
+#
+#A = bilex(R_file, T_file, has_header)
+#tam = len(A)
+#
+#
+## Exibir a matriz A
+#with open('out.txt', 'w') as output_file:
+#    for i in range(0, tam):
+#        name = names[i]
+#        formatted_row = [float(value) for value in A[i]]
+#        print(f'{name: <30}{formatted_row}', file=output_file)
