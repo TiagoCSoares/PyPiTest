@@ -14,7 +14,7 @@ The project implements a bi-objective lexicographic ranking approach. The classi
 Make sure you have Python 3 installed. Then, you can install the package using the following command:
 
 
-import boRanking
+from BiObjClass import bilex, par10
 
 
 # Usage

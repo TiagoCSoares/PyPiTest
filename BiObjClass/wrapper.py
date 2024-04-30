@@ -269,38 +269,12 @@ def par10(G_file, has_header = False):
 
 
         # Variável para calcular o maior valor na linha
-        max = max(A[0])
+        max_value = max(A[i])
 
         for j in range(n):
             # Caso A[i][j] == 0 então A[i][j] recebe o maior valor da linha multiplicado por 10
             if A[i][j] == 0:
-                A[i][j] = max*10
-        #A.sort()
+                A[i][j] = max_value * 10
 
 
-
-#R_file = input("Informe o nome do arquivo R: ")
-#T_file = input("Informe o nome do arquivo T: ")
-#
-#R = []
-#T = []
-#
-#
-#has_header_input = input("Os arquivos têm cabeçalho? (S para Sim, N para Não): ").upper()
-#has_header = has_header_input == 'S'
-#
-#names = []
-#
-#
-#
-#
-#A = bilex(R_file, T_file, has_header)
-#tam = len(A)
-#
-#
-## Exibir a matriz A
-#with open('out.txt', 'w') as output_file:
-#    for i in range(0, tam):
-#        name = names[i]
-#        formatted_row = [float(value) for value in A[i]]
-#        print(f'{name: <30}{formatted_row}', file=output_file)
+    return A
